@@ -22,6 +22,7 @@ import java.util.Properties;
         @PropertySource("classpath:db.properties")
 })
 @EnableTransactionManagement
+@EnableAspectJAutoProxy
 public class DBConfiguration {
     private final Environment environment;
 
@@ -33,7 +34,7 @@ public class DBConfiguration {
     @Bean
     @Profile("dev")
     public DataSource dataSourceDevelopment() {
-        System.out.println("------------------------------DEV------------------------------");
+        System.out.println("------------------------------DEVELOPMENT------------------------------");
         final String driver = environment.getProperty("db.driver");
         final String url = environment.getProperty("db.url");
         final String username = environment.getProperty("db.username");
@@ -47,7 +48,6 @@ public class DBConfiguration {
         dataSource.setUsername(username);
         dataSource.setPassword(password);
 
-        System.out.println("------------------------------DEV------------------------------");
         return dataSource;
     }
 

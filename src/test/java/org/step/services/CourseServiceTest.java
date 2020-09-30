@@ -54,6 +54,15 @@ public class CourseServiceTest {
     }
 
     @Test
+    public void findCourse() {
+        final Course course = courseCrudService.find(this.course.getId());
+
+        Assert.assertNotNull(course);
+        System.out.println("Returned course in findCourse test: " + course.toString());
+        Assert.assertEquals(course.getId(), this.course.getId());
+    }
+
+    @Test
     public void findAllCourses() {
         List<Course> courses = courseCrudService.findAll();
 

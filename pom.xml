@@ -24,6 +24,7 @@
     <slf4j.version>1.7.30</slf4j.version>
     <jakarta.el.version>3.0.3</jakarta.el.version>
     <hibernate-validator.version>6.1.5.Final</hibernate-validator.version>
+    <aspectj.version>1.9.6</aspectj.version>
   </properties>
 
   <dependencies>
@@ -54,6 +55,17 @@
       <scope>test</scope>
     </dependency>
 
+    <dependency>
+      <groupId>org.aspectj</groupId>
+      <artifactId>aspectjweaver</artifactId>
+      <version>${aspectj.version}</version>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.aspectj</groupId>
+      <artifactId>aspectjrt</artifactId>
+      <version>${aspectj.version}</version>
+    </dependency>
 
     <dependency>
       <groupId>org.hibernate</groupId>
