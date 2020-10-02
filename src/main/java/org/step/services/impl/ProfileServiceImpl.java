@@ -9,7 +9,6 @@ import org.step.repositories.CrudRepository;
 import org.step.services.CrudService;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ProfileServiceImpl implements CrudService<Profile> {

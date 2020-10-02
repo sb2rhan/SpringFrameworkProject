@@ -1,7 +1,10 @@
 package org.step.entities;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.*;
 
 @Entity
@@ -26,7 +29,7 @@ public class User {
     private Long id;
 
     @Size(min = 5, max = 128, message = "The length of username should be at least 10 to 128 symbols")
-    @Column(name = "username", nullable = false, insertable = true, updatable = true, length = 128)
+    @Column(name = "username", nullable = false, length = 128)
     private String username;
 
 //    @NotNull
@@ -37,7 +40,7 @@ public class User {
 
     @Max(value = 140, message = "You too old, heaven is waiting for you")
     @NotNull
-    @Column(name = "age", precision = 2, scale = 0)
+    @Column(name = "age", precision = 2)
     private Integer age;
 
     @OneToOne(

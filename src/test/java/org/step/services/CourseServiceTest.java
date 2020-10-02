@@ -14,7 +14,6 @@ import org.step.configuration.DBConfiguration;
 import org.step.entities.Course;
 
 import java.util.List;
-import java.util.Optional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {DBConfiguration.class})
