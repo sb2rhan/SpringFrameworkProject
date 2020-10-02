@@ -14,6 +14,7 @@ import org.step.configuration.DBConfiguration;
 import org.step.entities.Course;
 
 import java.util.List;
+import java.util.Optional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {DBConfiguration.class})
@@ -55,7 +56,8 @@ public class CourseServiceTest {
 
     @Test
     public void findCourse() {
-        final Course course = courseCrudService.find(this.course.getId());
+        final Course course;
+        course = courseCrudService.find(this.course.getId());
 
         Assert.assertNotNull(course);
         System.out.println("Returned course in findCourse test: " + course.toString());

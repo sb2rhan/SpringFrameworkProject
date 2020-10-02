@@ -1,14 +1,10 @@
 package org.step.entities;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.*;
 
 @Entity
-// do not write user
 @Table(name = "users")
 @NamedEntityGraph(
         name = User.USER_MESSAGE_GRAPH,
@@ -20,12 +16,6 @@ import java.util.*;
 public class User {
 
     public static final String USER_MESSAGE_GRAPH = "User[messageList]";
-
-    // GenerationType.TABLE - hibernate is responsible for generation ids by hibernate_sequence
-    // GenerationType.IDENTITY - table must have auto increment property on id column
-    // GenerationType.SEQUENCE - (@SequenceGenerator) - hibernate creates sequence as we declared
-    // or it is uses our sequence which we have created
-    // GenerationType.AUTO - allow hibernate decide what strategy to use (not recommended)
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,25 +35,11 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @Min(value = 18, message = "You should be at least 18 years old")
     @Max(value = 140, message = "You too old, heaven is waiting for you")
+    @NotNull
     @Column(name = "age", precision = 2, scale = 0)
     private Integer age;
 
-    /*
-   CascadeType
-
-    ALL - все вместе
-    PERSIST - сохранение
-    DETACH - убрать из persistence context
-    MERGE - обновление (update)
-    REFRESH - обновление данных из базы данных в persistence context
-    REMOVE - *** используется крайне редко *** - каскадное удаление
-
-    FetchType
-    EAGER - жадный select
-    LAZY - ленивый select (На проектах почти всегда)
-     */
     @OneToOne(
             mappedBy = "user",
             cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH},
@@ -71,13 +47,11 @@ public class User {
     )
     private Profile profile;
 
-    // mappedBy = имя объекта должно быть такое же, как и в самой сущности Message
     @OneToMany(
-            fetch = FetchType.LAZY,
+            fetch = FetchType.EAGER,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH},
             mappedBy = "user"
     )
-//    @Fetch(FetchMode.SUBSELECT)
     private List<Message> messages = new ArrayList<>();
 
     @ManyToMany(mappedBy = "userSet", fetch = FetchType.LAZY)
@@ -99,9 +73,6 @@ public class User {
     }
 
     public void addMessage(Message message) {
-//        if (this.messageList == null) {
-//            this.messageList = new ArrayList<>();
-//        }
         this.messages.add(message);
         message.setUser(this);
     }
@@ -216,5 +187,15 @@ public class User {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", age=" + age +
+                '}';
     }
 }
