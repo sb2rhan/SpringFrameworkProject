@@ -1,5 +1,7 @@
 package org.step.entities;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
@@ -16,6 +18,7 @@ import java.util.*;
         }
         // subgraph - зависимости у нода
 )
+@DynamicUpdate
 public class User {
 
     public static final String USER_MESSAGE_GRAPH = "User[messageList]";
